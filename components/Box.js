@@ -30,12 +30,8 @@ const sizes = {
     large: styles.large,
 };
 
-const Box = props => {
-    return (
-        <View
-            style={[styles.box, props.rounded && styles.rounded, sizes[props.size]]}
-        />
-    );
+const Box = ({ rounded, size }) => {
+    return <View style={[styles.box, rounded && styles.rounded, sizes[size]]} />;
 };
 
 Box.defulatProps = {

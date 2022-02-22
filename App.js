@@ -9,6 +9,7 @@
 import React, { useCallback, useState } from 'react';
 
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -27,28 +28,35 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import Box from './components/Box';
 import Greeting from './components/Greeting';
+import Counter from './components/Counter';
 
 const App = () => {
+  const [visible, setVisible] = useState(false);
   const [changeBorder, setChangeBorder] = useState(false);
-  const [count, setCount] = useState(0);
-  const handleIncrease = useCallback(() => {
-    setCount(prev => (prev += 1));
+  const handleToggle = useCallback(() => {
+    setVisible(prev => (prev = !prev));
   }, []);
-
   const handleChangeBorder = useCallback(() => {
     setChangeBorder(prev => (prev = !prev));
   }, []);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.full}>
+      <Counter />
       <View>
-        <Text onPress={handleIncrease}>Hello World</Text>
-        <Text>{count}</Text>
         <Greeting />
-        <Box rounded={changeBorder} size={'large'} />
+        {visible && <Box rounded={changeBorder} size={'large'} />}
         <Text onPress={handleChangeBorder}>HandleChange</Text>
+        <Button title="클릭" onPress={handleToggle} />
       </View>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  full: {
+    flex: 1,
+    backgroundColor: 'cyan',
+  },
+});
 
 export default App;

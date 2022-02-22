@@ -10,10 +10,10 @@ const styles = StyleSheet.create({
     },
 });
 
-const Greeting = props => {
+const Greeting = ({ desc }) => {
     return (
         <View style={styles.sample}>
-            <Text style={styles.text}>Greeting {props.desc}</Text>
+            <Text style={styles.text}>Greeting {desc}</Text>
         </View>
     );
 };
