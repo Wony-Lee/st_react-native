@@ -9,8 +9,15 @@
 import React, { useCallback, useState } from 'react';
 
 import {
+  Colors,
+  DebugInstructions,
+  Header,
+  LearnMoreLinks,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
+
+import {
   Button,
-  SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -18,44 +25,28 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import Box from './components/Box';
-import Greeting from './components/Greeting';
-import Counter from './components/Counter';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import DateHead from './components/DateHead';
+import AddTodo from './components/AddTodo';
+import Empty from './components/Empty';
 
 const App = () => {
-  const [visible, setVisible] = useState(false);
-  const [changeBorder, setChangeBorder] = useState(false);
-  const handleToggle = useCallback(() => {
-    setVisible(prev => (prev = !prev));
-  }, []);
-  const handleChangeBorder = useCallback(() => {
-    setChangeBorder(prev => (prev = !prev));
-  }, []);
+  const today = new Date();
+  console.log('today', today);
   return (
-    <SafeAreaView style={styles.full}>
-      <Counter />
-      <View>
-        <Greeting />
-        {visible && <Box rounded={changeBorder} size={'large'} />}
-        <Text onPress={handleChangeBorder}>HandleChange</Text>
-        <Button title="클릭" onPress={handleToggle} />
-      </View>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView edges={['bottom']} style={styles.block}>
+        <DateHead date={today} />
+        <Empty />
+        <AddTodo />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 
 const styles = StyleSheet.create({
-  full: {
+  block: {
     flex: 1,
-    backgroundColor: 'cyan',
   },
 });
 
