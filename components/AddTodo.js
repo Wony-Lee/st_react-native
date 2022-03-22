@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -11,10 +11,10 @@ import {
   Keyboard,
 } from 'react-native';
 
-const AddTodo = () => {
+const AddTodo = ({onInsert}) => {
   const [text, setText] = useState('');
-  console.log('text', text);
   const onPress = () => {
+    onInsert(text);
     setText('');
     Keyboard.dismiss();
   };
@@ -23,7 +23,6 @@ const AddTodo = () => {
       <Image source={require('../public/icons/add_white/add_white.png')} />
     </View>
   );
-
   return (
     <View style={styles.block}>
       <TextInput
