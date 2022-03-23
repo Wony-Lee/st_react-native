@@ -28,6 +28,7 @@ import {
   Platform,
 } from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import todosStorage from './storages/todosStorage';
 import DateHead from './components/DateHead';
 import AddTodo from './components/AddTodo';
 import Empty from './components/Empty';
@@ -62,8 +63,14 @@ const App = () => {
     const nextTodos = todos.filter(todo => todo.id !== id);
     setTodos(nextTodos);
   };
+
   useEffect(() => {
-    console.log(todos);
+    todosStorage.get().then(setTodos).catch(console.error);
+  }, []);
+
+  // 저장하기
+  useEffect(() => {
+    todosStorage.set(todos).catch(console.error);
   }, [todos]);
 
   return (
